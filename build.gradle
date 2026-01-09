@@ -19,6 +19,13 @@ group = mod_group_id
 
 repositories {
     // Add here additional repositories if required by some of the dependencies below.
+    mavenCentral()
+    maven {
+        url "https://www.cursemaven.com"
+        content {
+            includeGroup "curse.maven"
+        }
+    }
 }
 
 base {
@@ -45,6 +52,7 @@ neoForge {
     runs {
         client {
             client()
+            jvmArgument "-Xmx12G"
 
             // Comma-separated list of namespaces to load gametests from. Empty = all namespaces.
             systemProperty 'neoforge.enabledGameTestNamespaces', project.mod_id
@@ -112,6 +120,14 @@ configurations {
 }
 
 dependencies {
+    // Beolvassa az összes .jar fájlt a 'libs' mappából
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+    implementation "net.neoforged:neoforge:${neo_version}"
+
+
+
+
+
     // Example optional mod dependency with JEI
     // The JEI API is declared for compile time use, while the full JEI artifact is used at runtime
     // compileOnly "mezz.jei:jei-${mc_version}-common-api:${jei_version}"
